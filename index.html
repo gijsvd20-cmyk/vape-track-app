@@ -3,348 +3,554 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily Tracker</title>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
+
+<meta name="theme-color" content="#09090b">
+
+<title>Tracker</title>
 
 <style>
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
 }
 
 :root {
-  --bg: #09090b;
-  --card: rgba(255,255,255,.055);
-  --border: rgba(255,255,255,.09);
-  --text: #f5f5f5;
-  --muted: #8b8b95;
-  --accent: #8b5cf6;
-  --accent2: #6366f1;
+    --bg: #08080a;
+    --card: rgba(255,255,255,.055);
+    --card2: rgba(255,255,255,.08);
+    --border: rgba(255,255,255,.09);
+    --text: #f7f7f8;
+    --muted: #92929b;
+    --purple: #8b5cf6;
+    --blue: #6366f1;
+    --green: #34d399;
 }
 
 body {
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at 20% 0%, rgba(139,92,246,.18), transparent 32%),
-    radial-gradient(circle at 90% 20%, rgba(99,102,241,.12), transparent 28%),
-    var(--bg);
-  color: var(--text);
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at 15% -10%,
+            rgba(139,92,246,.25),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 100% 20%,
+            rgba(99,102,241,.14),
+            transparent 28%
+        ),
+        var(--bg);
+    color: var(--text);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+button {
+    font-family: inherit;
 }
 
 .app {
-  width: min(100%, 480px);
-  min-height: 100vh;
-  margin: auto;
-  padding: 28px 18px 110px;
+    width: min(100%, 480px);
+    min-height: 100vh;
+    margin: auto;
+    padding: 25px 17px 115px;
 }
 
-/* Header */
+/* HEADER */
+
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 28px;
-  animation: fadeDown .6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    animation: fadeDown .55s ease;
 }
 
-.header h1 {
-  font-size: 28px;
-  letter-spacing: -.8px;
+.title h1 {
+    font-size: 28px;
+    letter-spacing: -1px;
 }
 
-.header p {
-  color: var(--muted);
-  font-size: 13px;
-  margin-top: 5px;
+.title p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 4px;
 }
 
-.settings {
-  width: 42px;
-  height: 42px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  border-radius: 14px;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  transition: .25s;
+.icon-button {
+    width: 43px;
+    height: 43px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: white;
+    border-radius: 14px;
+    font-size: 19px;
+    cursor: pointer;
+    transition: .25s;
 }
 
-.settings:hover {
-  transform: rotate(20deg);
-  background: rgba(255,255,255,.09);
+.icon-button:active {
+    transform: scale(.9) rotate(15deg);
 }
 
-/* Main counter */
-.counter {
-  position: relative;
-  overflow: hidden;
-  padding: 28px;
-  border-radius: 28px;
-  background:
-    linear-gradient(145deg,
-      rgba(139,92,246,.22),
-      rgba(255,255,255,.045));
-  border: 1px solid var(--border);
-  box-shadow: 0 20px 60px rgba(0,0,0,.25);
-  animation: fadeUp .7s ease;
+/* HERO */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding: 28px;
+    border-radius: 29px;
+    border: 1px solid var(--border);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(139,92,246,.23),
+            rgba(255,255,255,.045)
+        );
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.3);
+
+    animation: fadeUp .65s ease;
 }
 
-.counter::before {
-  content: "";
-  position: absolute;
-  width: 180px;
-  height: 180px;
-  right: -70px;
-  top: -70px;
-  background: rgba(139,92,246,.22);
-  filter: blur(45px);
-  border-radius: 50%;
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 190px;
+    height: 190px;
+    right: -75px;
+    top: -85px;
+    background: rgba(139,92,246,.3);
+    filter: blur(50px);
+    border-radius: 50%;
 }
 
-.counter-label {
-  color: #b7b2c5;
-  font-size: 14px;
+.hero-label {
+    position: relative;
+    color: #b7b1c4;
+    font-size: 14px;
 }
 
-.number {
-  font-size: 72px;
-  line-height: 1;
-  font-weight: 750;
-  letter-spacing: -4px;
-  margin: 12px 0;
+.big-number {
+    position: relative;
+    font-size: 76px;
+    line-height: 1;
+    letter-spacing: -5px;
+    font-weight: 800;
+    margin: 10px 0 20px;
 }
 
-.counter-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.hero-bottom {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.status {
-  color: #bdb8ca;
-  font-size: 13px;
+.hero-status {
+    color: var(--muted);
+    font-size: 12px;
 }
 
-.add {
-  border: 0;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  color: white;
-  font-size: 15px;
-  font-weight: 700;
-  padding: 13px 19px;
-  border-radius: 15px;
-  cursor: pointer;
-  box-shadow: 0 8px 25px rgba(99,102,241,.3);
-  transition: transform .15s, box-shadow .2s;
+.add-button {
+    border: none;
+    color: white;
+    font-weight: 750;
+    font-size: 14px;
+    padding: 13px 19px;
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    box-shadow:
+        0 9px 25px rgba(99,102,241,.3);
+
+    cursor: pointer;
+    transition: transform .15s, box-shadow .2s;
 }
 
-.add:active {
-  transform: scale(.92);
+.add-button:active {
+    transform: scale(.91);
+    box-shadow: 0 4px 15px rgba(99,102,241,.2);
 }
 
-/* Stats */
+/* SECTIONS */
+
+.section {
+    margin-top: 27px;
+}
+
 .section-title {
-  margin: 28px 0 13px;
-  font-size: 16px;
-  font-weight: 650;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
 }
+
+/* STATS */
 
 .stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 11px;
 }
 
 .stat {
-  padding: 19px;
-  border-radius: 20px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  animation: fadeUp .8s ease;
+    padding: 18px;
+    border-radius: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    animation: fadeUp .75s ease;
 }
 
-.stat span {
-  color: var(--muted);
-  font-size: 12px;
+.stat-label {
+    color: var(--muted);
+    font-size: 12px;
 }
 
-.stat strong {
-  display: block;
-  margin-top: 7px;
-  font-size: 25px;
+.stat-value {
+    margin-top: 6px;
+    font-size: 26px;
+    font-weight: 750;
 }
 
-/* Chart */
+/* CHART */
+
+.chart-card {
+    height: 205px;
+    padding: 18px 13px 27px;
+    border-radius: 22px;
+    background: var(--card);
+    border: 1px solid var(--border);
+}
+
 .chart {
-  height: 190px;
-  padding: 18px 15px;
-  border-radius: 22px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: end;
-  gap: 9px;
+    height: 100%;
+    display: flex;
+    align-items: end;
+    gap: 9px;
 }
 
-.bar-wrap {
-  flex: 1;
-  height: 100%;
-  display: flex;
-  align-items: end;
-  justify-content: center;
+.bar-wrapper {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+}
+
+.bar-area {
+    width: 100%;
+    height: calc(100% - 23px);
+    display: flex;
+    align-items: end;
+    justify-content: center;
 }
 
 .bar {
-  width: 100%;
-  max-width: 28px;
-  height: var(--height);
-  border-radius: 8px 8px 5px 5px;
-  background: linear-gradient(to top, var(--accent2), var(--accent));
-  transform-origin: bottom;
-  animation: grow .8s cubic-bezier(.2,.8,.2,1);
+    width: min(27px, 70%);
+    min-height: 5px;
+    border-radius: 8px 8px 4px 4px;
+
+    background:
+        linear-gradient(
+            to top,
+            var(--blue),
+            var(--purple)
+        );
+
+    transform-origin: bottom;
+    animation: grow .65s cubic-bezier(.2,.8,.2,1);
 }
 
-.day {
-  position: absolute;
-  margin-top: 205px;
-  font-size: 10px;
-  color: var(--muted);
+.day-label {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 10px;
 }
 
-.chart-wrap {
-  position: relative;
-  padding-bottom: 25px;
-}
+/* HISTORY */
 
-/* History */
 .history {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
 }
 
 .history-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 17px;
-  border-radius: 17px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  transition: .2s;
-}
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-.history-item:hover {
-  transform: translateX(3px);
-  background: rgba(255,255,255,.075);
+    padding: 15px 17px;
+    border-radius: 17px;
+
+    background: var(--card);
+    border: 1px solid var(--border);
+
+    animation: slideIn .35s ease;
 }
 
 .history-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
 }
 
-.dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 12px rgba(139,92,246,.7);
+.activity-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--purple);
+    box-shadow: 0 0 13px rgba(139,92,246,.7);
 }
 
-.history-time {
-  color: var(--muted);
-  font-size: 12px;
+.activity-name {
+    font-size: 14px;
 }
 
-/* Bottom navigation */
-.nav {
-  position: fixed;
-  left: 50%;
-  bottom: 16px;
-  transform: translateX(-50%);
-  width: min(calc(100% - 32px), 450px);
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-  background: rgba(18,18,21,.82);
-  backdrop-filter: blur(18px);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  box-shadow: 0 15px 40px rgba(0,0,0,.35);
+.activity-time {
+    color: var(--muted);
+    font-size: 12px;
 }
 
-.nav button {
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  padding: 9px 15px;
-  border-radius: 14px;
-  cursor: pointer;
-  font-size: 20px;
-  transition: .2s;
+.empty {
+    padding: 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    border-radius: 17px;
+    background: var(--card);
+    border: 1px solid var(--border);
 }
 
-.nav button.active {
-  color: white;
-  background: rgba(139,92,246,.16);
+/* NAV */
+
+.bottom-nav {
+    position: fixed;
+    z-index: 10;
+    left: 50%;
+    bottom: 15px;
+    transform: translateX(-50%);
+
+    width: min(calc(100% - 30px), 450px);
+
+    display: flex;
+    justify-content: space-around;
+
+    padding: 9px;
+
+    background: rgba(18,18,21,.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border: 1px solid var(--border);
+    border-radius: 22px;
+
+    box-shadow: 0 18px 50px rgba(0,0,0,.4);
 }
 
-/* Toast */
+.nav-button {
+    width: 52px;
+    height: 43px;
+    border: none;
+    border-radius: 14px;
+    background: transparent;
+    color: var(--muted);
+    font-size: 19px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.nav-button.active {
+    color: white;
+    background: rgba(139,92,246,.17);
+}
+
+/* MODAL */
+
+.modal-background {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+
+    display: none;
+    align-items: end;
+    justify-content: center;
+
+    background: rgba(0,0,0,.62);
+    backdrop-filter: blur(7px);
+}
+
+.modal-background.open {
+    display: flex;
+}
+
+.modal {
+    width: min(100%, 480px);
+    padding: 23px;
+    border-radius: 28px 28px 0 0;
+    background: #151518;
+    border: 1px solid var(--border);
+
+    animation: modalUp .3s ease;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.modal h2 {
+    font-size: 20px;
+}
+
+.close {
+    border: none;
+    background: var(--card2);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.modal-option {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.reset {
+    color: #fb7185;
+}
+
+/* TOAST */
+
 .toast {
-  position: fixed;
-  left: 50%;
-  bottom: 95px;
-  transform: translate(-50%, 20px);
-  padding: 12px 18px;
-  border-radius: 14px;
-  background: #18181b;
-  border: 1px solid var(--border);
-  opacity: 0;
-  pointer-events: none;
-  transition: .3s;
-  font-size: 13px;
+    position: fixed;
+    z-index: 30;
+    left: 50%;
+    bottom: 93px;
+
+    transform: translate(-50%, 20px);
+
+    padding: 12px 18px;
+    border-radius: 14px;
+
+    background: #19191d;
+    border: 1px solid var(--border);
+
+    font-size: 13px;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: .3s;
 }
 
 .toast.show {
-  opacity: 1;
-  transform: translate(-50%, 0);
+    opacity: 1;
+    transform: translate(-50%, 0);
 }
 
-/* Animations */
+/* ANIMATIONS */
+
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeDown {
-  from {
-    opacity: 0;
-    transform: translateY(-15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes grow {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: scaleY(1);
-  }
+    from {
+        transform: scaleY(0);
+    }
+
+    to {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes modalUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* SMALL PHONES */
+
+@media (max-width: 360px) {
+    .app {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    .big-number {
+        font-size: 65px;
+    }
+
+    .hero {
+        padding: 23px;
+    }
 }
 </style>
 </head>
@@ -353,171 +559,695 @@ body {
 
 <div class="app">
 
-  <header class="header">
-    <div>
-      <h1>Mijn tracker</h1>
-      <p>Dagelijks overzicht</p>
-    </div>
-    <button class="settings">⚙</button>
-  </header>
+    <!-- HEADER -->
 
-  <section class="counter">
-    <div class="counter-label">Vandaag</div>
+    <header class="header">
 
-    <div class="number" id="count">0</div>
+        <div class="title">
+            <h1>Mijn tracker</h1>
+            <p id="dateText">Vandaag</p>
+        </div>
 
-    <div class="counter-footer">
-      <div class="status">Activiteiten geregistreerd</div>
-      <button class="add" onclick="addItem()">+ Toevoegen</button>
-    </div>
-  </section>
+        <button
+            class="icon-button"
+            onclick="openSettings()">
+            ⚙
+        </button>
 
-  <div class="section-title">Overzicht</div>
+    </header>
 
-  <section class="stats">
-    <div class="stat">
-      <span>Deze week</span>
-      <strong id="weekCount">0</strong>
-    </div>
 
-    <div class="stat">
-      <span>Gemiddeld</span>
-      <strong id="average">0</strong>
-    </div>
-  </section>
+    <!-- MAIN COUNTER -->
 
-  <div class="section-title">Deze week</div>
+    <section class="hero">
 
-  <div class="chart-wrap">
-    <div class="chart" id="chart"></div>
-  </div>
+        <div class="hero-label">
+            Vandaag
+        </div>
 
-  <div class="section-title">Recente activiteit</div>
+        <div
+            class="big-number"
+            id="todayCount">
+            0
+        </div>
 
-  <div class="history" id="history"></div>
+        <div class="hero-bottom">
+
+            <div class="hero-status">
+                activiteiten geregistreerd
+            </div>
+
+            <button
+                class="add-button"
+                onclick="addActivity()">
+                + Toevoegen
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <section class="section">
+
+        <div class="section-title">
+            Overzicht
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Deze week
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="weekTotal">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Dagelijks gemiddelde
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="average">
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CHART -->
+
+    <section class="section">
+
+        <div class="section-title">
+            Deze week
+        </div>
+
+        <div class="chart-card">
+
+            <div
+                class="chart"
+                id="chart">
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- HISTORY -->
+
+    <section class="section">
+
+        <div class="section-title">
+            Recente activiteit
+        </div>
+
+        <div
+            class="history"
+            id="history">
+        </div>
+
+    </section>
 
 </div>
 
-<nav class="nav">
-  <button class="active">⌂</button>
-  <button>▦</button>
-  <button>◉</button>
-  <button>⚙</button>
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+    <button
+        class="nav-button active"
+        onclick="showToast('Dashboard')">
+        ⌂
+    </button>
+
+    <button
+        class="nav-button"
+        onclick="scrollToHistory()">
+        ▦
+    </button>
+
+    <button
+        class="nav-button"
+        onclick="showToast('Statistieken worden bijgehouden')">
+        ◉
+    </button>
+
+    <button
+        class="nav-button"
+        onclick="openSettings()">
+        ⚙
+    </button>
+
 </nav>
 
-<div class="toast" id="toast">
-  Toegevoegd ✓
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast">
 </div>
 
+
+<!-- SETTINGS MODAL -->
+
+<div
+    class="modal-background"
+    id="modal"
+    onclick="closeOutside(event)">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2>Instellingen</h2>
+
+            <button
+                class="close"
+                onclick="closeSettings()">
+                ✕
+            </button>
+
+        </div>
+
+        <button
+            class="modal-option"
+            onclick="exportData()">
+            📦 Gegevens exporteren
+        </button>
+
+        <button
+            class="modal-option reset"
+            onclick="resetData()">
+            🗑 Alles wissen
+        </button>
+
+    </div>
+
+</div>
+
+
 <script>
-let count = Number(localStorage.getItem("trackerCount")) || 0;
 
-let history = JSON.parse(
-  localStorage.getItem("trackerHistory") || "[]"
-);
+/* =========================
+   DATA
+========================= */
 
-let week = JSON.parse(
-  localStorage.getItem("trackerWeek") ||
-  "[0,0,0,0,0,0,0]"
-);
+let data = JSON.parse(
+    localStorage.getItem("trackerData")
+) || {
 
-const countEl = document.getElementById("count");
-const weekEl = document.getElementById("weekCount");
-const averageEl = document.getElementById("average");
-const historyEl = document.getElementById("history");
-const chartEl = document.getElementById("chart");
-const toast = document.getElementById("toast");
+    days: [0, 0, 0, 0, 0, 0, 0],
+
+    history: [],
+
+    lastDate: getDateKey()
+
+};
+
+
+/* =========================
+   DATE
+========================= */
+
+function getDateKey() {
+
+    const date = new Date();
+
+    return date.getFullYear() + "-" +
+        String(date.getMonth() + 1).padStart(2, "0") + "-" +
+        String(date.getDate()).padStart(2, "0");
+
+}
+
+
+function checkNewDay() {
+
+    const today = getDateKey();
+
+    if (data.lastDate !== today) {
+
+        data.days.shift();
+        data.days.push(0);
+
+        data.lastDate = today;
+
+        save();
+
+    }
+
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+function save() {
+
+    localStorage.setItem(
+        "trackerData",
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =========================
+   ADD ACTIVITY
+========================= */
+
+function addActivity() {
+
+    checkNewDay();
+
+    const now = new Date();
+
+    const time =
+        now.toLocaleTimeString(
+            "nl-NL",
+            {
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
+
+    data.days[6]++;
+
+    data.history.unshift({
+
+        time: time,
+
+        date: getDateKey()
+
+    });
+
+
+    /* Keep history small */
+
+    if (data.history.length > 20) {
+
+        data.history =
+            data.history.slice(0, 20);
+
+    }
+
+
+    save();
+
+    render();
+
+    showToast("Toegevoegd ✓");
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
 
 function render() {
-  countEl.textContent = count;
 
-  const total = week.reduce((a,b) => a + b, 0);
-  weekEl.textContent = total;
+    checkNewDay();
 
-  const avg = Math.round(total / 7 * 10) / 10;
-  averageEl.textContent = avg;
 
-  renderChart();
-  renderHistory();
+    const today =
+        data.days[6];
+
+    const total =
+        data.days.reduce(
+            (sum, value) => sum + value,
+            0
+        );
+
+    const average =
+        Math.round(
+            (total / 7) * 10
+        ) / 10;
+
+
+    document.getElementById(
+        "todayCount"
+    ).textContent = today;
+
+
+    document.getElementById(
+        "weekTotal"
+    ).textContent = total;
+
+
+    document.getElementById(
+        "average"
+    ).textContent = average;
+
+
+    renderChart();
+
+    renderHistory();
+
+    updateDate();
+
 }
 
-function addItem() {
-  count++;
 
-  const now = new Date();
-
-  history.unshift({
-    time: now.toLocaleTimeString("nl-NL", {
-      hour: "2-digit",
-      minute: "2-digit"
-    })
-  });
-
-  if (history.length > 6) {
-    history.pop();
-  }
-
-  const day = (now.getDay() + 6) % 7;
-  week[day]++;
-
-  localStorage.setItem("trackerCount", count);
-  localStorage.setItem("trackerHistory", JSON.stringify(history));
-  localStorage.setItem("trackerWeek", JSON.stringify(week));
-
-  render();
-
-  toast.classList.add("show");
-
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 1300);
-}
-
-function renderHistory() {
-  if (!history.length) {
-    historyEl.innerHTML = `
-      <div class="history-item">
-        <span style="color:#888">
-          Nog geen activiteit geregistreerd
-        </span>
-      </div>
-    `;
-    return;
-  }
-
-  historyEl.innerHTML = history.map(item => `
-    <div class="history-item">
-      <div class="history-left">
-        <div class="dot"></div>
-        <span>Activiteit</span>
-      </div>
-      <span class="history-time">${item.time}</span>
-    </div>
-  `).join("");
-}
+/* =========================
+   CHART
+========================= */
 
 function renderChart() {
-  const days = ["Ma","Di","Wo","Do","Vr","Za","Zo"];
 
-  chartEl.innerHTML = week.map((value, index) => {
+    const chart =
+        document.getElementById("chart");
 
-    const max = Math.max(...week, 1);
-    const height = Math.max((value / max) * 85, 5);
+    const labels = [
+        "Ma",
+        "Di",
+        "Wo",
+        "Do",
+        "Vr",
+        "Za",
+        "Zo"
+    ];
 
-    return `
-      <div class="bar-wrap">
-        <div
-          class="bar"
-          style="--height:${height}%"
-          title="${value}"
-        ></div>
-        <span class="day">${days[index]}</span>
-      </div>
-    `;
-  }).join("");
+    const max =
+        Math.max(...data.days, 1);
+
+
+    chart.innerHTML =
+        data.days.map(
+            (value, index) => {
+
+                const height =
+                    Math.max(
+                        (value / max) * 100,
+                        5
+                    );
+
+                return `
+
+                    <div class="bar-wrapper">
+
+                        <div class="bar-area">
+
+                            <div
+                                class="bar"
+                                style="height:${height}%"
+                                title="${value}"
+                            ></div>
+
+                        </div>
+
+                        <div class="day-label">
+                            ${labels[index]}
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
 }
 
+
+/* =========================
+   HISTORY
+========================= */
+
+function renderHistory() {
+
+    const container =
+        document.getElementById(
+            "history"
+        );
+
+
+    if (!data.history.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+                Nog geen activiteit geregistreerd
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        data.history.map(
+            item => `
+
+                <div class="history-item">
+
+                    <div class="history-left">
+
+                        <div
+                            class="activity-dot">
+                        </div>
+
+                        <div
+                            class="activity-name">
+                            Activiteit
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="activity-time">
+                        ${item.time}
+                    </div>
+
+                </div>
+
+            `
+        ).join("");
+
+}
+
+
+/* =========================
+   DATE TEXT
+========================= */
+
+function updateDate() {
+
+    const date =
+        new Date();
+
+    const text =
+        date.toLocaleDateString(
+            "nl-NL",
+            {
+                weekday: "long",
+                day: "numeric",
+                month: "long"
+            }
+        );
+
+    document.getElementById(
+        "dateText"
+    ).textContent =
+        text.charAt(0).toUpperCase() +
+        text.slice(1);
+
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+function openSettings() {
+
+    document
+        .getElementById("modal")
+        .classList.add("open");
+
+}
+
+
+function closeSettings() {
+
+    document
+        .getElementById("modal")
+        .classList.remove("open");
+
+}
+
+
+function closeOutside(event) {
+
+    if (
+        event.target.id === "modal"
+    ) {
+        closeSettings();
+    }
+
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+function resetData() {
+
+    const confirmed =
+        confirm(
+            "Weet je zeker dat je alle gegevens wilt wissen?"
+        );
+
+    if (!confirmed) return;
+
+
+    data = {
+
+        days: [0,0,0,0,0,0,0],
+
+        history: [],
+
+        lastDate: getDateKey()
+
+    };
+
+
+    save();
+
+    render();
+
+    closeSettings();
+
+    showToast("Alles gewist");
+
+}
+
+
+/* =========================
+   EXPORT
+========================= */
+
+function exportData() {
+
+    const file =
+        new Blob(
+            [
+                JSON.stringify(
+                    data,
+                    null,
+                    2
+                )
+            ],
+            {
+                type: "application/json"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(file);
+
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "tracker-data.json";
+
+    link.click();
+
+
+    URL.revokeObjectURL(url);
+
+    showToast("Gegevens geëxporteerd");
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function scrollToHistory() {
+
+    document
+        .getElementById("history")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+
+    clearTimeout(toastTimer);
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+                toast.classList.remove(
+                    "show"
+                );
+            },
+            1400
+        );
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+checkNewDay();
+
 render();
+
 </script>
 
 </body>
